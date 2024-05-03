@@ -1,0 +1,24 @@
+TABLE Users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    pass TEXT,
+    age TEXT,
+    rank TEXT,
+    karma INTEGER DEFAULT 75 )
+
+TABLE Journal (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_user INTEGER,
+    note TEXT,
+    date TEXT)
+
+TABLE Games (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    info TEXT DEFAULT 'None')
+
+TABLE Scores (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_game INT,
+    id_user INT,
+    score INT DEFAULT 0)
