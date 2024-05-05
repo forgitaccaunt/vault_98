@@ -1,7 +1,7 @@
 import sqlite3
 
 
-with sqlite3.connect('vault_98/Databases/vault_98.db') as connection:
+with sqlite3.connect('Databases/vault_98.db') as connection:
     cursor = connection.cursor()
 
     try:
