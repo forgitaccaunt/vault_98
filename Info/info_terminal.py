@@ -3,7 +3,7 @@ import json
 import sqlite3
 
 
-def get_terminal_info():
+def get_terminal_info(user_id):
     print('>>> TERMINAL INFORMATION:')
 
     # Получаем имя админа (смотрителя) терминала
@@ -32,6 +32,7 @@ def get_terminal_info():
     # Подставляем в файл IP и ADMIN и выводим
     info['CONNECT_PORT'] = json_data['ip']
     info['OVERSEER'] = admin_name
+    info['ID_USER'] = user_id
 
     for key, value in info.items():
         print(f'{key}: {value}')

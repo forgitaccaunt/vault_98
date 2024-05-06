@@ -10,7 +10,7 @@ def user_authorization():
 
         try:
             with connection:
-                cursor.execute('SELECT id, name, pass, age, rank, karma FROM Users')
+                cursor.execute('SELECT * FROM Users')
                 user_list = cursor.fetchall()
         except Exception:
             print("TERMINAL ERROR")

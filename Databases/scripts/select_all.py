@@ -8,8 +8,12 @@ cursor = connection.cursor()
 cursor.execute("SELECT * FROM Users")
 for u in cursor.fetchall():
     print(u)
-
-cursor.execute("SELECT * FROM Journal")
+print('----------     ---')
+cursor.execute("SELECT * FROM Games")
+for u in cursor.fetchall():
+    print(u)
+print('----------     ---')
+cursor.execute("SELECT * FROM Scores")
 for u in cursor.fetchall():
     print(u)
 

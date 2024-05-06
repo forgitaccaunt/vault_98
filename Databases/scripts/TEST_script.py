@@ -6,7 +6,8 @@ with sqlite3.connect('Databases/vault_98.db') as connection:
 
     try:
         with connection:
-            query = ''
-            cursor.execute(query)
+            query = 'SELECT name FROM Users WHERE id = {}'.format(1)
+            print(cursor.execute(query).fetchone())
+
     except Exception:
         print("TERMINAL ERROR")

@@ -5,7 +5,7 @@ command_admin_panel = {
 
 
 # Меню Панели управления
-def get_admin_panel():
+def get_admin_panel(user_id):
     print('''
 [ADMIN PANEL MENU] Список доступных комманд:
 >>> Журнал записей смотрителя:
@@ -25,8 +25,8 @@ RETURN - Назад
         if tmp_input == 'RETURN':
             return None
         else:
-            command_admin_panel[tmp_input]()
-            get_admin_panel()
+            command_admin_panel[tmp_input](user_id)
+            get_admin_panel(user_id)
     except KeyError:
         print('[WARNING] Неверная команда')
-        get_admin_panel()
+        get_admin_panel(user_id)

@@ -1,6 +1,6 @@
 from Admin_panel.main_admin import get_admin_panel
+from Games.main_games import get_games
 from Login.authorization import user_authorization
-from Login.registration import user_registration
 from Login.quit import get_exit
 from Info.info_terminal import get_terminal_info
 
@@ -12,31 +12,23 @@ with open("GUI/content/logo.txt", "r") as file:
     print()
 
 # Словарь доступных комманд
-command_dict = {'GAMES': 'get_games',
+command_dict = {'GAMES': get_games,
                 'ADMIN': get_admin_panel,
                 'INFO': get_terminal_info,
                 'QUIT': get_exit
                 }
-# Кортеж с возможными вариантами YES
-yes_tpl = ('Y', 'YE', 'YES', 'Д', 'ДА', 'D', 'DA')
 
 
 # Функция авторизации / регистрации
 def login():
-    if input('У Вас есть учётная запись? [YES / NO]: ').upper() in yes_tpl:
-        return user_authorization()
-    else:
-        print('Для работы в терминале необходима учётная запись VAULT-TEK...')
-        if input('Создать учётную запись? [YES / NO]: ').upper() in yes_tpl:
-            user_registration()
-        else:
-            print('Возврат в меню Авторизации...')
-            login()
+    print('>>> АВТОРИЗАЦИЯ')
+    return user_authorization()
 
 
 # Функция, реализующая главное меню
 # Аналогичные функции будут реализовывать внутренние меню
 def main():
+    print('--------------------------------')
     print('''
 [MAIN TERMINAL MENU] Список доступных комманд:
 GAMES - Игры
@@ -55,12 +47,13 @@ QUIT - KILL TERMINAL SESSION
                 print('[WARNING] ПАНЕЛЬ УПРАВЛЕНИЯ доступна только Смотрителю')
                 main()
         else:
-            command_dict[tmp_input]()
+            command_dict[tmp_input](user_session[0])
             main()
     except KeyError:
         print('[WARNING] Неверная команда')
         main()
 
 
+# Сохраняем кортеж данных пользователя
 user_session = login()
 main()
