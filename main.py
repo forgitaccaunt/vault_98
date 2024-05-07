@@ -40,8 +40,8 @@ QUIT - KILL TERMINAL SESSION
     try:
         tmp_input = input('COMMAND: ').upper()
         if tmp_input == 'ADMIN':
-            if user_session[0] == 1:
-                get_admin_panel()
+            if user_session[4] == "ADMIN":
+                get_admin_panel(user_session[0])
                 main()
             else:
                 print('[WARNING] ПАНЕЛЬ УПРАВЛЕНИЯ доступна только Смотрителю')

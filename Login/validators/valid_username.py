@@ -1,23 +1,24 @@
-def username_validator(name):
-    digits = '1234567890'
-    upper_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    acceptable = digits+upper_letters
+import sqlite3
 
-    set_name = set(name)
-    if any(char not in acceptable for char in set_name):
-        print('[WARNING] Запрещенный спецсимвол')
+
+def username_validator(name: str) -> str:
+    if 3 <= len(name) <= 30:
+        # Проверка уникальности:
+        with sqlite3.connect('Databases/vault_98.db') as connection:
+            cursor = connection.cursor()
+
+            try:
+                with connection:
+                    query = 'SELECT COUNT(*) FROM Users WHERE name = ?'
+                    tmp = cursor.execute(query, (name,))
+                    if tmp.fetchone()[0] == 0:
+                        return name
+                    else:
+                        print('[WARNING] ИМЯ занято')
+                        username_validator(input('ИМЯ ПОЛЬЗОВАТЕЛЯ: ').upper())
+            except Exception:
+                print("TERMINAL ERROR")
     else:
-        recommendations = []
-        if len(name) < 3:
-            recommendations.append(f'увеличить число символов - {3-len(name)}')
-        for what, message in ((digits,        'цифру'),
-                              (upper_letters, 'заглавную букву')):
-            if all(char not in what for char in set_name):
-                recommendations.append(f'добавить 1 {message}')
-
-        if recommendations:
-            print("[WARNING] Рекомендации:", ", ".join(recommendations))
-            username_validator(input('ИМЯ ПОЛЬЗОВАТЕЛЯ: '))
-        else:
-            print('Password has been verified...')
-            return name
+        print('[WARNING] Имя не менше 3 символов')
+        print('[WARNING] Имя не больше 30 символов')
+        username_validator(input('ИМЯ ПОЛЬЗОВАТЕЛЯ: ').upper())

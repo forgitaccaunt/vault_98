@@ -1,4 +1,4 @@
-def password_validator(password):
+def password_validator(password: str) -> str:
     digits = '1234567890'
     upper_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     lower_letters = 'abcdefghijklmnopqrstuvwxyz'
@@ -23,5 +23,4 @@ def password_validator(password):
             print("[WARNING] Рекомендации:", ", ".join(recommendations))
             password_validator(input('ПАРОЛЬ: '))
         else:
-            print('*** Password has been verified...')
             return password

@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests
 import json
 import sqlite3
@@ -25,15 +26,27 @@ def get_terminal_info(user_id):
     except Exception:
         print("TERMINAL ERROR")
 
+    # Ищем геолокацию по IP запросом к другому API
+    try:
+        response = requests.get('https://ipwho.is/8.8.4.4?fields=latitude,longitude')
+        if response.status_code == 200:
+            location = response.json()
+    except Exception:
+        print("TERMINAL ERROR")
+
     # Получаем файл json с информацией о терминале
     with open("Info/terminal_info.json") as file:
         info = json.load(file)
 
     # Подставляем в файл IP и ADMIN и выводим
-    info['CONNECT_PORT'] = json_data['ip']
+    info['SYSTEM_TIME'] = datetime.today().strftime("%H:%M of %d.%m.%Y")
+    info['LOCATION'] = (location['latitude'], location['longitude'])
+    info['SYSTEM_PORT'] = json_data['ip']
     info['OVERSEER'] = admin_name
-    info['ID_USER'] = user_id
+    info['IDS_USER'] = user_id
 
     for key, value in info.items():
         print(f'{key}: {value}')
-    input("<- RETURN ")
+
+    print()
+    input("<- RETURN... press any key ")

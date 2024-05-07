@@ -6,8 +6,10 @@ with sqlite3.connect('Databases/vault_98.db') as connection:
 
     try:
         with connection:
-            query = 'SELECT name FROM Users WHERE id = {}'.format(1)
-            print(cursor.execute(query).fetchone())
-
+            query = '''INSERT INTO Users (name, pass, age, rank)
+            VALUES
+            ("BRADWIS", "EPTMEMN", "1990", "USER")
+            '''
+            cursor.execute(query)
     except Exception:
         print("TERMINAL ERROR")

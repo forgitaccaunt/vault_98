@@ -1,11 +1,24 @@
+from Admin_panel.journal.add_note import add_new_note
+from Admin_panel.journal.read import get_all_notes
+from Admin_panel.journal.readlast import get_last_note
+from Admin_panel.userlist.deluser import persona_el_morta
+from Admin_panel.userlist.user_list import get_all_user
+from Login.registration import user_registration
+
+
 # Словарь доступных комманд
-command_admin_panel = {
-                'RETURN': None
-                }
+command_admin_panel = {'ADDNOTE': add_new_note,
+                       'READ': get_all_notes,
+                       'READLAST': get_last_note,
+                       'USERLIST': get_all_user,
+                       'ADDUSER': user_registration,
+                       'DELUSER': persona_el_morta
+                       }
 
 
 # Меню Панели управления
 def get_admin_panel(user_id):
+    print('--------------------------------')
     print('''
 [ADMIN PANEL MENU] Список доступных комманд:
 >>> Журнал записей смотрителя:
