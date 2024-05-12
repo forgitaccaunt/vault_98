@@ -1,9 +1,8 @@
-<h2 align="center"> ._________________________________.</a> 
-<h2 align="center">*/  -                           -  \*</a> 
-<h2 align="center">*  -   /  V A U L T - T E K  \   -  *</a> 
-<h2 align="center">*  -   \     terminal 98     /   -  *</a> 
-<h2 align="center">*\__-___________________________-__/@</a> 
-<h2 align="center">        ---------------------</a> 
+
+<h2 align="center">
+ 
+ ![](https://i.pinimg.com/564x/67/dc/8b/67dc8bea96a682b4251b42b1f9a5cd89.jpg)
+</a> 
 
 
 # Название:
