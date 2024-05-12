@@ -1,18 +1,14 @@
-from Admin_panel.journal.add_note import add_new_note
-from Admin_panel.journal.read import get_all_notes
-from Admin_panel.journal.readlast import get_last_note
-from Admin_panel.userlist.deluser import persona_el_morta
-from Admin_panel.userlist.user_list import get_all_user
-from Login.registration import user_registration
-
-
 # Словарь доступных комманд
-command_admin_panel = {'ADDNOTE': add_new_note,
-                       'READ': get_all_notes,
-                       'READLAST': get_last_note,
-                       'USERLIST': get_all_user,
-                       'ADDUSER': user_registration,
-                       'DELUSER': persona_el_morta
+from Admin_panel.communication.main_comm import get_connect_menu
+from Admin_panel.journal.main_journal import get_journal_menu
+from Admin_panel.loglist.main_log import get_loglist_menu
+from Admin_panel.userlist.main_userlist import get_userlist_menu
+
+
+command_admin_panel = {'JOURNAL': get_journal_menu,
+                       'USERLIST': get_userlist_menu,
+                       'LOGLIST': get_loglist_menu,
+                       'CONNECT': get_connect_menu
                        }
 
 
@@ -21,15 +17,10 @@ def get_admin_panel(user_id):
     print('--------------------------------')
     print('''
 [ADMIN PANEL MENU] Список доступных комманд:
->>> Журнал записей смотрителя:
-ADDNOTE  - Добавить запись
-READ     - Показать все записи
-READLAST - Показать последнюю запись
->>> Личный состав:
-USERLIST - Список личного состава
-ADDUSER  - Добавить гражданина
-DELUSER  - Удалить гражднина
->>> [UNSUPPORTED] Протокол событий:
+JOURNAL  - Журнал записей смотрителя
+USERLIST - Личный состав
+LOGLIST  - Журнал событий
+CONNECT  - Связь с другими убежищами
 >
 RETURN - Назад
           ''')

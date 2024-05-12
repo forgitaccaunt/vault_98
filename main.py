@@ -14,8 +14,10 @@ with open('Logging/config/logging_config.yaml', 'rt') as f:
 
 logging.config.dictConfig(config)
 
-# Создаём первый логгер
+# Создаём логгер
 logger = logging.getLogger(__name__)
+
+logger.debug('get debug message')
 
 # Логотип и интерфейсы
 with open("GUI/content/logo.txt", "r") as file:
@@ -46,7 +48,7 @@ def main():
 \033[1m\033[32m[MAIN TERMINAL MENU]\033[0m Список доступных комманд:
 GAMES - Игры
 ADMIN - Панель управления
-INFO - Информация о терминале
+INFO  - Информация о терминале
 >
 QUIT - KILL TERMINAL SESSION
           ''')

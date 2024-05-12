@@ -12,7 +12,7 @@ def persona_el_morta(user_id):
                 query = 'DELETE FROM Users WHERE id = {}'.format(persona)
                 if input('ВЫ УВЕРЕНЫ? [YES / NO]: ') == 'YES':
                     cursor.execute(query)
-                    print('Гражданин мёрт или навсегда покинул убежище...')
+                    print('Житель мёрт или навсегда покинул убежище...')
                 else:
                     print("[WARNING] Операция прервана")
         except Exception:

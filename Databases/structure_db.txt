@@ -1,3 +1,5 @@
+# vault_98.db:
+
 TABLE Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
@@ -22,3 +24,12 @@ TABLE Scores (
     id_game INT,
     id_user INT,
     score INT DEFAULT 0)
+
+
+# log_98.db:
+
+TABLE Userlogs
+    Id INT PRIMARY KEY,
+    user_id INT,
+    date TEXT,
+    note TEXT
