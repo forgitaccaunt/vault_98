@@ -1,3 +1,6 @@
+import logging
+import logging.config
+import yaml
 from Admin_panel.main_admin import get_admin_panel
 from Games.main_games import get_games
 from Login.authorization import user_authorization
@@ -5,10 +8,19 @@ from Login.quit import get_exit
 from Info.info_terminal import get_terminal_info
 
 
+# Загружаем настройки логирования из файла
+with open('Logging/config/logging_config.yaml', 'rt') as f:
+    config = yaml.safe_load(f.read())
+
+logging.config.dictConfig(config)
+
+# Создаём первый логгер
+logger = logging.getLogger(__name__)
+
 # Логотип и интерфейсы
 with open("GUI/content/logo.txt", "r") as file:
     for line in file:
-        print(line, end='')
+        print(f'\033[1m\033[32m{line}\033[0m', end='')
     print()
 
 # Словарь доступных комманд
@@ -21,7 +33,8 @@ command_dict = {'GAMES': get_games,
 
 # Функция авторизации / регистрации
 def login():
-    print('>>> АВТОРИЗАЦИЯ')
+    print('\033[1m\033[32m*\033[0m' * 37)
+    print('\033[1m\033[32m>>> АВТОРИЗАЦИЯ\033[0m')
     return user_authorization()
 
 
@@ -30,7 +43,7 @@ def login():
 def main():
     print('--------------------------------')
     print('''
-[MAIN TERMINAL MENU] Список доступных комманд:
+\033[1m\033[32m[MAIN TERMINAL MENU]\033[0m Список доступных комманд:
 GAMES - Игры
 ADMIN - Панель управления
 INFO - Информация о терминале

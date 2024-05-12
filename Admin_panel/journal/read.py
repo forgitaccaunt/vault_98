@@ -1,6 +1,8 @@
+from functools import lru_cache
 import sqlite3
 
 
+@lru_cache
 def get_all_notes(user_id):
 
     with sqlite3.connect('Databases/vault_98.db') as connection:
