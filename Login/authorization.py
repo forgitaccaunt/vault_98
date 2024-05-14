@@ -1,5 +1,6 @@
 import sqlite3
 from GUI.color_decor import get_succes, get_warning
+from Logging.user_log import trace_user
 
 
 def user_authorization():
@@ -19,6 +20,8 @@ def user_authorization():
     for user in user_list:
         if user[1] == user_name and user[2] == user_pass:
             print(f'{get_succes()} ACCESS level: {user[4]}')
+            # Пишем лог о входе в систему
+            trace_user(user[0], 'Вход в систему')
             return user
     else:
         print(f'{get_warning()} Неверное ИМЯ ПОЛЬЗОВАТЕЛЯ или ПАРОЛЬ!')

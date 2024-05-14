@@ -29,7 +29,7 @@ TABLE Scores (
 # log_98.db:
 
 TABLE Userlogs
-    Id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTOINCREMENT,
     user_id INT,
     date TEXT,
     note TEXT

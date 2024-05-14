@@ -60,7 +60,7 @@ QUIT - KILL TERMINAL SESSION
                 get_admin_panel(user_session[0])
                 main()
             else:
-                print(f'{get_warning()} ПАНЕЛЬ УПРАВЛЕНИЯ доступна только Смотрителю')
+                print(f'{get_warning()} Отказано в доступе')
                 main()
         else:
             command_dict[tmp_input](user_session[0])
