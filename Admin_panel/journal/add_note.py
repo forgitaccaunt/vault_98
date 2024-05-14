@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime
+from GUI.color_decor import get_succes, get_warning
 
 
 def add_new_note(user_id):
@@ -12,11 +13,11 @@ def add_new_note(user_id):
         try:
             with connection:
                 query = '''INSERT INTO Journal (id_user, note, date)
-                        VALUES ({}, {}, {})'''.format(user_id, note, date)
-                cursor.execute(query)
+                VALUES (?, ?, ?)'''
+                cursor.execute(query, (user_id, note, date))
 
         except Exception:
-            print("TERMINAL ERROR")
+            print(f'{get_warning()} TERMINAL ERROR')
 
     print()
-    input("[УСПЕХ] Запись добавлена... press any key")
+    input(f'{get_succes()} Запись добавлена... press any key')

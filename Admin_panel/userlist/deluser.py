@@ -1,4 +1,5 @@
 import sqlite3
+from GUI.color_decor import get_succes, get_warning
 
 
 def persona_el_morta(user_id):
@@ -12,11 +13,11 @@ def persona_el_morta(user_id):
                 query = 'DELETE FROM Users WHERE id = {}'.format(persona)
                 if input('ВЫ УВЕРЕНЫ? [YES / NO]: ') == 'YES':
                     cursor.execute(query)
-                    print('Житель мёрт или навсегда покинул убежище...')
+                    print(f'{get_succes()} Житель мёрт или навсегда покинул убежище...')
                 else:
-                    print("[WARNING] Операция прервана")
+                    print(f'{get_warning()} Операция прервана')
         except Exception:
-            print("[WARNING] TERMINAL ERROR")
+            print(f'{get_warning()} TERMINAL ERROR')
 
     print()
 

@@ -1,7 +1,10 @@
+from GUI.color_decor import get_warning
+
+
 def rank_validator(rank: str) -> str:
     if rank in ('ADMIN', 'USER', 'AGENT'):
         return rank
     else:
-        print('[WARNING] ДОСТУПНЫЕ РАНГИ:')
+        print(f'{get_warning()} ДОСТУПНЫЕ РАНГИ:')
         print('ADMIN, USER, AGENT')
         rank_validator(input('УРОВЕНЬ ДОСТУПА: ').upper())

@@ -1,4 +1,5 @@
 import sqlite3
+from GUI.color_decor import get_warning
 
 
 def add_scores(game_id, user_id):
@@ -27,4 +28,4 @@ def add_scores(game_id, user_id):
                             '''
                     cursor.execute(query, (game_id, user_id))
         except Exception:
-            print("TERMINAL ERROR")
+            print(f'{get_warning()} TERMINAL ERROR')

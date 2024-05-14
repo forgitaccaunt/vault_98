@@ -2,6 +2,7 @@ import logging
 import logging.config
 import yaml
 from Admin_panel.main_admin import get_admin_panel
+from GUI.color_decor import get_warning
 from Games.main_games import get_games
 from Login.authorization import user_authorization
 from Login.quit import get_exit
@@ -45,7 +46,7 @@ def login():
 def main():
     print('--------------------------------')
     print('''
-\033[1m\033[32m[MAIN TERMINAL MENU]\033[0m Список доступных комманд:
+\033[1m\033[37m[MAIN TERMINAL MENU]\033[0m Список доступных комманд:
 GAMES - Игры
 ADMIN - Панель управления
 INFO  - Информация о терминале
@@ -59,13 +60,13 @@ QUIT - KILL TERMINAL SESSION
                 get_admin_panel(user_session[0])
                 main()
             else:
-                print('[WARNING] ПАНЕЛЬ УПРАВЛЕНИЯ доступна только Смотрителю')
+                print(f'{get_warning()} ПАНЕЛЬ УПРАВЛЕНИЯ доступна только Смотрителю')
                 main()
         else:
             command_dict[tmp_input](user_session[0])
             main()
     except KeyError:
-        print('[WARNING] Неверная команда')
+        print(f'{get_warning()} Неверная команда')
         main()
 
 

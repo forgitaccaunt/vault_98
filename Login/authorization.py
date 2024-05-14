@@ -1,4 +1,5 @@
 import sqlite3
+from GUI.color_decor import get_succes, get_warning
 
 
 def user_authorization():
@@ -13,12 +14,12 @@ def user_authorization():
                 cursor.execute('SELECT * FROM Users')
                 user_list = cursor.fetchall()
         except Exception:
-            print("TERMINAL ERROR")
+            print(f'{get_warning()}TERMINAL ERROR')
 
     for user in user_list:
         if user[1] == user_name and user[2] == user_pass:
-            print(f'*** ACCESS level: {user[4]}')
+            print(f'{get_succes()} ACCESS level: {user[4]}')
             return user
     else:
-        print('[WARNING] Неверное ИМЯ ПОЛЬЗОВАТЕЛЯ или ПАРОЛЬ!')
+        print(f'{get_warning()} Неверное ИМЯ ПОЛЬЗОВАТЕЛЯ или ПАРОЛЬ!')
         return user_authorization()

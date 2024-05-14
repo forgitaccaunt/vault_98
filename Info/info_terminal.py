@@ -2,10 +2,11 @@ from datetime import datetime
 import requests
 import json
 import sqlite3
+from GUI.color_decor import get_inform, get_warning
 
 
 def get_terminal_info(user_id):
-    print('>>> TERMINAL INFORMATION:')
+    print(f'{get_inform()}:')
 
     # Получаем имя админа (смотрителя) терминала
     with sqlite3.connect('Databases/vault_98.db') as connection:
@@ -16,7 +17,7 @@ def get_terminal_info(user_id):
                 cursor.execute('SELECT name FROM Users WHERE id == 1')
                 admin_name = cursor.fetchone()[0]
         except Exception:
-            print("TERMINAL ERROR")
+            print(f'{get_warning()} TERMINAL ERROR')
 
     # Получаем IP машины для строчки CONNECT_PORT
     try:
@@ -24,7 +25,7 @@ def get_terminal_info(user_id):
         if response.status_code == 200:
             json_data = response.json()
     except Exception:
-        print("TERMINAL ERROR")
+        print(f'{get_warning()} TERMINAL ERROR')
 
     # Ищем геолокацию по IP запросом к другому API
     try:
@@ -32,7 +33,7 @@ def get_terminal_info(user_id):
         if response.status_code == 200:
             location = response.json()
     except Exception:
-        print("TERMINAL ERROR")
+        print(f'{get_warning()} TERMINAL ERROR')
 
     # Получаем файл json с информацией о терминале
     with open("Info/terminal_info.json") as file:

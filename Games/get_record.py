@@ -1,4 +1,5 @@
 import sqlite3
+from GUI.color_decor import get_warning
 
 
 def get_champion_and_scores(game_id, user_id):
@@ -15,6 +16,7 @@ def get_champion_and_scores(game_id, user_id):
                 '''. format(game_id)
                 champion, record = cursor.execute(query).fetchone()
         except Exception:
+            print(f'{get_warning()} TERMINAL ERROR')
             print("Ошибка вычисления рекорда")
 
         try:
@@ -23,6 +25,7 @@ def get_champion_and_scores(game_id, user_id):
                 query = 'SELECT name FROM Users WHERE id = {}'.format(champion)
                 champion = cursor.execute(query).fetchone()[0]
         except Exception:
+            print(f'{get_warning()} TERMINAL ERROR')
             print("Ошибка имени рекордсмена")
 
         try:
@@ -31,8 +34,8 @@ def get_champion_and_scores(game_id, user_id):
                 query = '''SELECT score FROM Scores
                 WHERE id_user = {}'''.format(user_id)
                 my_record = cursor.execute(query).fetchone()[0]
-
         except Exception:
+            print(f'{get_warning()} TERMINAL ERROR')
             print("Ошибка текущего рекорда")
 
     print(f'РЕКОРД: {record} ({champion})')

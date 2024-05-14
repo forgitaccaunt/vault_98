@@ -3,6 +3,7 @@ from Admin_panel.communication.main_comm import get_connect_menu
 from Admin_panel.journal.main_journal import get_journal_menu
 from Admin_panel.loglist.main_log import get_loglist_menu
 from Admin_panel.userlist.main_userlist import get_userlist_menu
+from GUI.color_decor import get_warning
 
 
 command_admin_panel = {'JOURNAL': get_journal_menu,
@@ -16,7 +17,7 @@ command_admin_panel = {'JOURNAL': get_journal_menu,
 def get_admin_panel(user_id):
     print('--------------------------------')
     print('''
-[ADMIN PANEL MENU] Список доступных комманд:
+033[1m\033[33m[ADMIN PANEL MENU]\033[0m Список доступных комманд:
 JOURNAL  - Журнал записей смотрителя
 USERLIST - Личный состав
 LOGLIST  - Журнал событий
@@ -32,5 +33,5 @@ RETURN - Назад
             command_admin_panel[tmp_input](user_id)
             get_admin_panel(user_id)
     except KeyError:
-        print('[WARNING] Неверная команда')
+        print(f'{get_warning()} Неверная команда')
         get_admin_panel(user_id)

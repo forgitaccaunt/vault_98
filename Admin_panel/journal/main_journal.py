@@ -14,7 +14,7 @@ command_journal_menu = {'ADDNOTE': add_new_note,
 def get_journal_menu(user_id):
     print('--------------------------------')
     print('''
-[JOURNAL MENU] Список доступных комманд:
+\033[1m\033[33m[JOURNAL MENU]\033[0m Список доступных комманд:
 ADDNOTE - Добавить запись
 READALL - Показать все записи
 READLAST - показать последнюю запись

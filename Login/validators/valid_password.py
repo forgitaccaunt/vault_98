@@ -1,3 +1,6 @@
+from GUI.color_decor import get_warning
+
+
 def password_validator(password: str) -> str:
     digits = '1234567890'
     upper_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -7,7 +10,7 @@ def password_validator(password: str) -> str:
 
     set_password = set(password)
     if any(char not in acceptable for char in set_password):
-        print('[WARNING] Запрещенный спецсимвол')
+        print(f'{get_warning()} Запрещенный спецсимвол')
     else:
         recommendations = []
         if len(password) < 8:
@@ -20,7 +23,7 @@ def password_validator(password: str) -> str:
                 recommendations.append(f'добавить 1 {message}')
 
         if recommendations:
-            print("[WARNING] Рекомендации:", ", ".join(recommendations))
+            print(f'{get_warning()} Рекомендации:', ', '.join(recommendations))
             password_validator(input('ПАРОЛЬ: '))
         else:
             return password
