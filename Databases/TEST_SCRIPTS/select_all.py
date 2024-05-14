@@ -13,6 +13,10 @@ cursor.execute("SELECT * FROM Journal")
 for u in cursor.fetchall():
     print(u)
 print('----------     ---')
+cursor.execute("SELECT * FROM Userlogs")
+for u in cursor.fetchall():
+    print(u)
+print('----------     ---')
 cursor.execute("SELECT * FROM Games")
 for u in cursor.fetchall():
     print(u)

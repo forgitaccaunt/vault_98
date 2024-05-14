@@ -25,11 +25,8 @@ TABLE Scores (
     id_user INT,
     score INT DEFAULT 0)
 
-
-# log_98.db:
-
-TABLE Userlogs
+TABLE Userlogs (
     id INT PRIMARY KEY AUTOINCREMENT,
     user_id INT,
     date TEXT,
-    note TEXT
+    note TEXT)
