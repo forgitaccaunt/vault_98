@@ -6,7 +6,7 @@ from GUI.color_decor import get_warning
 
 
 command_admin_panel = {'JOURNAL': get_journal_menu,
-                       'USERLIST': get_userlist_menu,
+                       'PERSONS': get_userlist_menu,
                        'CONNECT': get_connect_menu
                        }
 
@@ -16,9 +16,11 @@ def get_admin_panel(user_id):
     print('--------------------------------')
     print('''
 \033[1m\033[37m[ADMIN PANEL MENU]\033[0m Список доступных комманд:
-JOURNAL  - Журнал записей смотрителя
-USERLIST - Личный состав
-CONNECT  - Связь с другими убежищами
+JOURNAL - Журнал записей смотрителя
+PERSONS - Работа с личным составом
+CONNECT - Связь с другими убежищами
+XNAME - [UNSUPPORTED] Изменить имя пользователя
+XPASS - [UNSUPPORTED] ИЗменить пароль
 >
 RETURN - Назад
           ''')
