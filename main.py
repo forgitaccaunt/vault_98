@@ -56,7 +56,7 @@ QUIT - KILL TERMINAL SESSION
     try:
         tmp_input = input('COMMAND: ').upper()
         if tmp_input == 'ADMIN':
-            if user_session[4] == "ADMIN":
+            if user_session[1] == "ADMIN":
                 get_admin_panel(user_session[0])
                 main()
             else:

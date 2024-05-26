@@ -35,3 +35,5 @@ RETURN - Назад
     except KeyError:
         print(f'{get_warning()} Неверная команда')
         get_userlist_menu(user_id)
+    
+    return user_id

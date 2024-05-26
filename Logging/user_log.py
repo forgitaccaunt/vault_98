@@ -1,21 +1,16 @@
 from datetime import datetime
-import sqlite3
-from GUI.color_decor import get_warning
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from Databases.alchemy import Userlogs
 
 
 def trace_user(user_id, msg):
-    date = datetime.today().strftime("%H:%M-%d.%m.%Y")
+    date = datetime.today()
 
-    with sqlite3.connect('Databases/vault_98.db') as connection:
-        cursor = connection.cursor()
+    vault_db = 'sqlite:///Databases/vault98.db'
+    engine = create_engine(vault_db)
 
-        try:
-            with connection:
-                query = '''INSERT INTO Userlogs
-                (user_id, date, note)
-                VALUES (?, ?, ?)
-                '''
-                cursor.execute(query, (user_id, date, msg))
-
-        except Exception:
-            print(f'{get_warning()} TERMINAL ERROR')
+    with Session(autoflush=False, bind=engine) as db:
+        tmp = Userlogs(id_user=user_id, date=date, note=msg)
+        db.add(tmp)
+        db.commit()

@@ -50,6 +50,7 @@ class Userlogs(Base):
     __tablename__ = 'userlogs'
     id = Column(Integer, primary_key=True)
     id_user = Column(Integer, ForeignKey('users.id'))
+    date = Column(Date)
     note = Column(String)
     user = relationship(User)
 

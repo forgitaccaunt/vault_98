@@ -1,26 +1,22 @@
-import sqlite3
-
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from Databases.alchemy import User
 from GUI.color_decor import get_warning
 
 
 def username_validator(name: str) -> str:
-    if 3 <= len(name) <= 30:
-        # Проверка уникальности:
-        with sqlite3.connect('Databases/vault_98.db') as connection:
-            cursor = connection.cursor()
+    if 3 <= len(name) <= 30 and name.isalnum():
+        # Проверка на уникальность
+        vault_db = 'sqlite:///Databases/vault98.db'
+        engine = create_engine(vault_db)
 
-            try:
-                with connection:
-                    query = 'SELECT COUNT(*) FROM Users WHERE name = ?'
-                    tmp = cursor.execute(query, (name,))
-                    if tmp.fetchone()[0] == 0:
-                        return name
-                    else:
-                        print(f'{get_warning()} ИМЯ занято')
-                        username_validator(input('ИМЯ ПОЛЬЗОВАТЕЛЯ: ').upper())
-            except Exception:
-                print(f'{get_warning()} TERMINAL ERROR')
+        with Session(autoflush=False, bind=engine) as db:
+            user_name = db.query(User).filter(User.name==name).first()
+            if user_name:
+                print(f'{get_warning()} Имя занято')
+                return username_validator(input('ИМЯ ПОЛЬЗОВАТЕЛЯ: ').upper())
+            else:
+                return name
     else:
-        print(f'{get_warning()} Имя не менше 3 символов')
-        print(f'{get_warning()} Имя не больше 30 символов')
-        username_validator(input('ИМЯ ПОЛЬЗОВАТЕЛЯ: ').upper())
+        print(f'{get_warning()} Длина от 3 до 30 символов, ТОЛЬКО буквы и цифры')
+        return username_validator(input('ИМЯ ПОЛЬЗОВАТЕЛЯ: ').upper())

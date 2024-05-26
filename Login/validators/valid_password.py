@@ -11,6 +11,7 @@ def password_validator(password: str) -> str:
     set_password = set(password)
     if any(char not in acceptable for char in set_password):
         print(f'{get_warning()} Запрещенный спецсимвол')
+        return password_validator(input('ПАРОЛЬ: '))
     else:
         recommendations = []
         if len(password) < 8:
@@ -24,6 +25,6 @@ def password_validator(password: str) -> str:
 
         if recommendations:
             print(f'{get_warning()} Рекомендации:', ', '.join(recommendations))
-            password_validator(input('ПАРОЛЬ: '))
-        else:
-            return password
+            return password_validator(input('ПАРОЛЬ: '))
+
+    return password

@@ -1,24 +1,26 @@
 from functools import lru_cache
-import sqlite3
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from Databases.alchemy import User
 from GUI.color_decor import get_warning
 
 
 @lru_cache
 def get_all_user(user_id):
 
-    with sqlite3.connect('Databases/vault_98.db') as connection:
-        cursor = connection.cursor()
+    vault_db = 'sqlite:///Databases/vault98.db'
+    engine = create_engine(vault_db)
 
-        try:
-            with connection:
-                query = 'SELECT id, name, age, rank FROM Users ORDER BY id'
-                users = cursor.execute(query).fetchall()
+    with Session(autoflush=False, bind=engine) as db:
+        users = db.query(User).all()
+        if users:
+            print(f' ID |       NAME       |     AGE     | RANK ')
+            print(f'============================================')
+            for user in users:
+                print(f'{user.id:4}| {user.name:16} | {user.age}  | {user.rank:6}')
+        else:
+            print(f'{get_warning()} TERMINLAL ERROR')
 
-        except Exception:
-            print(f'{get_warning()} TERMINAL ERROR')
-
-    for user in users:
-        print(f'ID: {user[0]:<3}# NAME: {user[1]:<15} age: {user[2]} [{user[3]}]')
     print()
-
     input("<- RETURN... press any key ")
+    return user_id
