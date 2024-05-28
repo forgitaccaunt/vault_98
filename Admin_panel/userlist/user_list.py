@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from Databases.alchemy import User
 from GUI.color_decor import get_warning
+from prettytable import PrettyTable
 
 
 @lru_cache
@@ -12,13 +13,19 @@ def get_all_user(user_id):
     engine = create_engine(vault_db)
 
     with Session(autoflush=False, bind=engine) as db:
-        users = db.query(User).all()
-        if users:
-            print(f' ID |       NAME       |     AGE     | RANK ')
-            print(f'============================================')
+        # Создаём и печатаем таблицу
+        try:
+            users = db.query(User).all()
+
+            table = PrettyTable()
+            table.field_names = ['ID', 'NAME', 'AGE', 'RANK']
+
             for user in users:
-                print(f'{user.id:4}| {user.name:16} | {user.age}  | {user.rank:6}')
-        else:
+                table.add_row([user.id, user.name, user.age, user.rank])
+
+            print(table)
+
+        except Exception:
             print(f'{get_warning()} TERMINLAL ERROR')
 
     print()
