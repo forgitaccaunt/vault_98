@@ -27,7 +27,7 @@ RETURN - Назад
     try:
         tmp_input = input('COMMAND: ').upper()
         if tmp_input == 'RETURN':
-            return None
+            return user_id
         else:
             command_admin_panel[tmp_input](user_id)
             get_admin_panel(user_id)

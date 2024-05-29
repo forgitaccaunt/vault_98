@@ -1,26 +1,26 @@
-import sqlite3
+
+from prettytable import PrettyTable
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from Databases.alchemy import Journal
 from GUI.color_decor import get_warning
 
 
 def get_last_note(user_id):
+    vault_db = 'sqlite:///Databases/vault98.db'
+    engine = create_engine(vault_db)
 
-    with sqlite3.connect('Databases/vault_98.db') as connection:
-        cursor = connection.cursor()
-
+    with Session(autoflush=False, bind=engine) as db:
+        # Создаём и печатаем таблицу
         try:
-            with connection:
-                query = '''SELECT id, date,
-                    (SELECT name FROM Users
-                    WHERE Journal.id_user = Users.id) as named, note
-                FROM Journal
-                ORDER BY id DESC
-                LIMIT 1'''
-                note = cursor.execute(query).fetchone()
-
+            note = db.query(Journal).order_by(Journal.id.desc()).first()
+            table = PrettyTable()
+            table.field_names = ['DATE', 'USER', 'NOTE']
+            table.add_row([note.date, note.id_user.name, note.note])
+            print(table)
         except Exception:
-            print(f'{get_warning()} TERMINAL ERROR')
+            print(f'{get_warning()} TERMINLAL ERROR')
 
-    print(f'#{note[0]} [{note[1]}][{note[2]}]: {note[3]}')
     print()
-
     input("<- RETURN... press any key ")
+    return user_id
