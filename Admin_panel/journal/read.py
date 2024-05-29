@@ -14,11 +14,11 @@ def get_all_notes(user_id):
     with Session(autoflush=False, bind=engine) as db:
         # Создаём и печатаем таблицу
         try:
-            notes = db.query(Journal).all()
+            rows = db.query(Journal).all()
             table = PrettyTable()
-            table.field_names = ['DATE', 'USER', 'NOTE']
-            for note in notes:
-                table.add_row([note.date, note.id_user.name, note.note])
+            table.field_names = ['id', 'DATE', 'USER', 'NOTE']
+            for row in rows:
+                table.add_row([row.id, row.date, row.user.name, row.note])
             print(table)
         except Exception:
             print(f'{get_warning()} TERMINLAL ERROR')

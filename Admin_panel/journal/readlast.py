@@ -16,7 +16,7 @@ def get_last_note(user_id):
             note = db.query(Journal).order_by(Journal.id.desc()).first()
             table = PrettyTable()
             table.field_names = ['DATE', 'USER', 'NOTE']
-            table.add_row([note.date, note.id_user.name, note.note])
+            table.add_row([note.date, note.user.name, note.note])
             print(table)
         except Exception:
             print(f'{get_warning()} TERMINLAL ERROR')

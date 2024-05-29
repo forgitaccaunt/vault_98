@@ -8,7 +8,6 @@ from prettytable import PrettyTable
 
 @lru_cache
 def get_all_user(user_id):
-
     vault_db = 'sqlite:///Databases/vault98.db'
     engine = create_engine(vault_db)
 
@@ -16,15 +15,11 @@ def get_all_user(user_id):
         # Создаём и печатаем таблицу
         try:
             users = db.query(User).all()
-
             table = PrettyTable()
             table.field_names = ['ID', 'NAME', 'AGE', 'RANK']
-
             for user in users:
                 table.add_row([user.id, user.name, user.age, user.rank])
-
             print(table)
-
         except Exception:
             print(f'{get_warning()} TERMINLAL ERROR')
 

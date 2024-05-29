@@ -14,10 +14,10 @@ def add_new_note(user_id):
     engine = create_engine(vault_db)
     try:
         with Session(autoflush=False, bind=engine) as db:
-            tmp = Journal(Journal.note=note, Journal.date=date)
+            tmp = Journal(note=note, date=date, id_user=user_id)
             db.add(tmp)
             db.commit()
-            input(f'{get_succes()} Запись добавлена... press any key')
+            print(f'{get_succes()} Запись добавлена')
     except Exception:
         print(f'{get_warning()} TERMINAL ERROR')
 
