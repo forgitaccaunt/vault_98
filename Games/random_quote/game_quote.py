@@ -1,5 +1,4 @@
 import requests
-
 from GUI.color_decor import get_warning
 from Games.get_game_info import get_info
 from Games.get_record import get_champion_and_scores

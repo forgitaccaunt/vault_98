@@ -28,12 +28,10 @@ RETURN - Назад
     try:
         tmp_input = input('COMMAND: ').upper()
         if tmp_input == 'RETURN':
-            return None
+            return user_id
         else:
             command_userlist_menu[tmp_input](user_id)
             get_userlist_menu(user_id)
     except KeyError:
         print(f'{get_warning()} Неверная команда')
         get_userlist_menu(user_id)
-    
-    return user_id

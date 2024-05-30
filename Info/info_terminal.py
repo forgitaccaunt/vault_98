@@ -1,7 +1,9 @@
 from datetime import datetime
 import requests
 import json
-import sqlite3
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from Databases.alchemy import User
 from GUI.color_decor import get_inform, get_warning
 
 
@@ -9,15 +11,14 @@ def get_terminal_info(user_id):
     print(f'{get_inform()}:')
 
     # Получаем имя админа (смотрителя) терминала
-    with sqlite3.connect('Databases/vault_98.db') as connection:
-        cursor = connection.cursor()
-
+    vault_db = 'sqlite:///Databases/vault98.db'
+    engine = create_engine(vault_db)
+    with Session(autoflush=False, bind=engine) as db:
         try:
-            with connection:
-                cursor.execute('SELECT name FROM Users WHERE id == 1')
-                admin_name = cursor.fetchone()[0]
+            tmp = db.query(User).filter(id==1).first()
+            admin_name = tmp.name
         except Exception:
-            print(f'{get_warning()} TERMINAL ERROR')
+            print(f'{get_warning()} LOST ADMIN NAME')
 
     # Получаем IP машины для строчки CONNECT_PORT
     try:
@@ -25,7 +26,7 @@ def get_terminal_info(user_id):
         if response.status_code == 200:
             json_data = response.json()
     except Exception:
-        print(f'{get_warning()} TERMINAL ERROR')
+        print(f'{get_warning()} LOST IP')
 
     # Ищем геолокацию по IP запросом к другому API
     try:
@@ -33,7 +34,7 @@ def get_terminal_info(user_id):
         if response.status_code == 200:
             location = response.json()
     except Exception:
-        print(f'{get_warning()} TERMINAL ERROR')
+        print(f'{get_warning()} LOST GEOLOCATION')
 
     # Получаем файл json с информацией о терминале
     with open("Info/terminal_info.json") as file:

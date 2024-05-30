@@ -24,7 +24,7 @@ RETURN - Назад
     try:
         tmp_input = input('COMMAND: ').upper()
         if tmp_input == 'RETURN':
-            return None
+            return user_id
         else:
             # Получаю из command_game_panel{} функцию игры и id игры
             # Вызываю функцию игры и передаю в нее user_id и game_id

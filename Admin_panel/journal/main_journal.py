@@ -24,7 +24,7 @@ RETURN - Назад
     try:
         tmp_input = input('COMMAND: ').upper()
         if tmp_input == 'RETURN':
-            return None
+            return user_id
         else:
             command_journal_menu[tmp_input](user_id)
             get_journal_menu(user_id)
