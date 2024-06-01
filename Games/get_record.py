@@ -1,42 +1,20 @@
-import sqlite3
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from Databases.alchemy import Score
 from GUI.color_decor import get_warning
 
 
 def get_champion_and_scores(game_id, user_id):
-    with sqlite3.connect('Databases/vault_98.db') as connection:
-        cursor = connection.cursor()
+    vault_db = 'sqlite:///Databases/vault98.db'
+    engine = create_engine(vault_db)
 
+    with Session(autoflush=False, bind=engine) as db:
         try:
-            with connection:
-                # Вычисляем рекорд
-                query = '''
-                    SELECT id_user, MAX(score) FROM Scores
-                    WHERE id_game = {}
-                    ORDER BY id LIMIT 1
-                '''. format(game_id)
-                champion, record = cursor.execute(query).fetchone()
+            champion = db.query(Score).filter(Score.id_game==game_id).order_by(Score.score.desc()).first()
+            record = db.query(Score).filter(Score.id_user=user_id, Score.id_game==game_id).first()
         except Exception:
             print(f'{get_warning()} TERMINAL ERROR')
-            print("Ошибка вычисления рекорда")
 
-        try:
-            with connection:
-                # Вычисляем имя рекордсмена
-                query = 'SELECT name FROM Users WHERE id = {}'.format(champion)
-                champion = cursor.execute(query).fetchone()[0]
-        except Exception:
-            print(f'{get_warning()} TERMINAL ERROR')
-            print("Ошибка имени рекордсмена")
-
-        try:
-            with connection:
-                # Вычисляем рекорд текущего пользователя
-                query = '''SELECT score FROM Scores
-                WHERE id_user = {}'''.format(user_id)
-                my_record = cursor.execute(query).fetchone()[0]
-        except Exception:
-            print(f'{get_warning()} TERMINAL ERROR')
-            print("Ошибка текущего рекорда")
-
-    print(f'РЕКОРД: {record} ({champion})')
-    print(f'ТВОЙ РЕКОРД: {my_record}')
+    print(f'РЕКОРД: {champion.score} ({champion.user.name})')
+    print(f'ТВОЙ РЕКОРД: {record.user.name}')
