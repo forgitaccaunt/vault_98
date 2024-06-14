@@ -2,6 +2,7 @@ from Admin_panel.userlist.deluser import persona_el_morta
 from Admin_panel.userlist.user_list import get_all_user
 from Admin_panel.userlist.userlist_log import get_user_log
 from GUI.color_decor import get_warning
+from Login.quit import get_exit
 from Login.registration import user_registration
 
 
@@ -9,7 +10,8 @@ from Login.registration import user_registration
 command_userlist_menu = {'USERLIST': get_all_user,
                          'ADDUSER': user_registration,
                          'DELUSER': persona_el_morta,
-                         'LOGUSER': get_user_log
+                         'LOGUSER': get_user_log,
+                         '0': get_exit
                          }
 
 
@@ -23,11 +25,12 @@ ADDUSER - Добавить жителя
 DELUSER - Удалить жителя
 LOGUSER - Получить логи авторизации
 >
-RETURN - Назад
+9 - Назад
+0 - KILL TERMINAL
           ''')
     try:
         tmp_input = input('COMMAND: ').upper()
-        if tmp_input == 'RETURN':
+        if tmp_input == '9':
             return user_id
         else:
             command_userlist_menu[tmp_input](user_id)

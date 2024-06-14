@@ -11,7 +11,7 @@ def get_info(game_id):
 
     with Session(autoflush=False, bind=engine) as db:
         try:
-            tmp = db.query(Game).filter(id==game_id).first()
+            tmp = db.query(Game).filter(Game.id==game_id).first()
             print(f'{tmp.name}: {tmp.info}')
         except Exception:
             print(f'{get_warning()} TERMINAL ERROR')

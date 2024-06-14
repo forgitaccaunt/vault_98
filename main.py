@@ -30,7 +30,7 @@ with open("GUI/content/logo.txt", "r") as file:
 command_dict = {'GAMES': get_games,
                 'ADMIN': get_admin_panel,
                 'INFO': get_terminal_info,
-                'QUIT': get_exit
+                '0': get_exit
                 }
 
 
@@ -51,7 +51,7 @@ GAMES - Игры
 ADMIN - Панель управления
 INFO  - Информация о терминале
 >
-QUIT - KILL TERMINAL SESSION
+0 - KILL TERMINAL SESSION
           ''')
     try:
         tmp_input = input('COMMAND: ').upper()

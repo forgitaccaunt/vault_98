@@ -14,9 +14,11 @@ def add_scores(game_id, user_id):
             user_scores = db.query(Score).filter(Score.id_game==game_id, Score.id_user==user_id).first()
             if user_scores:
                 user_scores.score += 1
+                db.commit()
             else:
                 tmp = Score(id_game=game_id, id_user=user_id, score=1)
                 db.add(tmp)
-            db.commit()
+                db.commit()
+                db.refresh(tmp)
         except Exception:
             print(f'{get_warning()} TERMINAL ERROR')

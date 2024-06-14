@@ -1,6 +1,7 @@
 from GUI.color_decor import get_warning
 from Games.quiz.game_quiz import get_quiz
 from Games.random_quote.game_quote import get_random_quote
+from Login.quit import get_exit
 
 
 # Словарь доступных комманд
@@ -19,12 +20,15 @@ GAME01 - Случайная цитата VAULT-Quote
 GAME02 - [UNSUPPORTED] Викторина VAULT-Quiz
 GAME03 - [UNSUPPORTED] ARCADA
 >
-RETURN - Назад
+9 - Назад
+0 - KILL TERMINAL
           ''')
     try:
         tmp_input = input('COMMAND: ').upper()
-        if tmp_input == 'RETURN':
+        if tmp_input == '9':
             return user_id
+        elif tmp_input == '0':
+            get_exit(user_id)
         else:
             # Получаю из command_game_panel{} функцию игры и id игры
             # Вызываю функцию игры и передаю в нее user_id и game_id

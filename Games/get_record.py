@@ -12,9 +12,9 @@ def get_champion_and_scores(game_id, user_id):
     with Session(autoflush=False, bind=engine) as db:
         try:
             champion = db.query(Score).filter(Score.id_game==game_id).order_by(Score.score.desc()).first()
-            record = db.query(Score).filter(Score.id_user=user_id, Score.id_game==game_id).first()
+            record = db.query(Score).filter(Score.id_user==user_id, Score.id_game==game_id).first()
         except Exception:
             print(f'{get_warning()} TERMINAL ERROR')
 
-    print(f'РЕКОРД: {champion.score} ({champion.user.name})')
-    print(f'ТВОЙ РЕКОРД: {record.user.name}')
+        print(f'РЕКОРД: {champion.score} ({champion.user.name})')
+        print(f'ТВОЙ РЕКОРД: {record.score}')
